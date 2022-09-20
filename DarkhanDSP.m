@@ -1,0 +1,17 @@
+numer=(20);
+denum=conv([1 0 0],[1 5]);
+Ts=0.1;
+tf1=0.8*[1 1];
+tf2=[0.0625 1];
+[nol, dol]=series(tf1, tf2, numer, denum);
+[ncl,dcl]=cloop(nol, dol);
+[tfd1, tfd2]=c2dm(num, denum, Ts, 'ZOH');
+[n1, n2]=c2dm(tf1, tf2, Ts, 'Tustin');
+printsys(numer, denum, 's');
+printsys(tfd1, tfd2, 'z');
+printsys(tf1, tf2, 's');
+printsys(n1, n2, 'z');
+[nold,dold]=series(n1, n2, tfd1, tfd2);
+[ncld,dcld]=cloop(nold, dold);
+subplot(211), step(ncl, dcl);
+subplot(212), dstep(ncld, dcld);
